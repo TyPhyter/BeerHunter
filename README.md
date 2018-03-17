@@ -1,12 +1,13 @@
 # BeerHunter
 
+## Project Description
 Team Name: The SCRUMdog Millionaires
 
 App: BeerHunter
 
-*Tyler -Project Lead, Back End Developer
-*Tanner -Front End Developer
-*Luis -Generalist Developer
+* Tyler -Project Lead, Back End Developer
+* Tanner -Front End Developer
+* Luis -Generalist Developer
 
 A web application utilizing the Untappd API and Google Maps API to allow users to search for bars that provide beers matching the unique tastes of multiple party members. The bars will be displayed via Google Maps along with pricing data.
 
@@ -14,7 +15,9 @@ CSS frameworks: Bootstrap for responsiveness, Materialize for styling (subject t
 
 Additional tech: undecided as of yet
 
-##UNTAPPD API
+## RESOURCES
+
+### UNTAPPD API
 
 Use your API key, listed below, to authenticate with our service so we know who you are. Please do not share your keys with anyone. 
 
