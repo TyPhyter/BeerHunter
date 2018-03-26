@@ -1,0 +1,56 @@
+body {
+    background-image: url("../images/wood-bg.jpg");
+};
+
+/* body.modal-open .supreme-container{
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+} */
+
+body.modal-open > :not(.modal) {
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+}
+a:link {
+    color: #ffcc00;
+}
+
+#currentLocationBtn {
+    font-size: 10px;
+}
+
+#moreBeerBtn {
+    font-size: 10px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #ffcc00 !important;
+    color: black;
+}
+.btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited {
+    background-color: #b32400 !important;
+    color: black;
+}
+.btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+    background-color: white !important;
+    color: black !important;
+}
+.image-fluid {
+    width: 100%;
+}
+.jumbotron {
+    background-image: url("../img/jumbotron_bg.jpg");
+    background-size: cover;}
+
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+}
+p {
+    font-family: 'Roboto', sans-serif;
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Beer Hunter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Reset.CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/landing-style.css" />
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300|Roboto" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Modal -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inputModalLabel">Tell us you and your friends' favorite beers:</h5>
+                    <button type="button" class="close btn-dark" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Search 1 -->
+                <div class="input-group mb-3" id="beer-input-grp">
+                    <input type="text" class="form-control" id="beer-input1" placeholder="Beer name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn-xs btn-outline-secondary" id="moreBeerBtn" type="button">Add another beer</button>
+                    </div>
+                </div>
+
+                <!-- User Location -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="location-input" placeholder="Your Current Location" aria-label="Your Current Location"
+                        aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn-xs btn-outline-secondary" id="currentLocationBtn" type="button">Use Current Location</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Buttons  -->
+                    <button type="button" class="btn btn-dark" data-dismiss="modal" id="modal-close">Close</button>
+                    <button type="button" class="btn btn-dark" id="beer-search-btn">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- !!!NavBar!!! -->
+    <!-- Supreme container to hold all content BUT modal -->
+    <div class="supreme-container">
+        <!-- BeerHunter Logo -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">BeerHunter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Button 1 -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="landing-index.html">
+                            <font color="#ffcc00">Home </font>
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </nav>
+
+
+        <!-- JumboTron -->
+        <!-- <div class="jumbotron" style="background-image: url(beer-jumbo.jpg); background-size: 100%;"> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg12 col-md-12 col-sm-12">
+                    <img src="assets/images/beer-jumbo.jpg" width=100% class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- !!!Beer Cards!!! -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm-10 col-md-6 col-lg-3">
+
+                <!-- Beer Card 1 -->
+                <div class="card w-100 bg-secondary">
+                    <div class="card-body">
+                        <!-- Brewery Name for Title -->
+                        <h2 class="card-title">Blue Moon</h2>
+                        <!-- Brewery or Beer Image for icon -->
+                        <div class="media">
+                            <img class="mr-3 beer-label" src="http://via.placeholder.com/100x100" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <!-- Specific beer name -->
+                                <h5 class="card-text">Belgian White</h5>
+                                <!-- Brewery name for link to UnTappd page -->
+                                <a href class="brewery" target="_blank">
+                                    <em>Blue Moon Brewing Company</em>
+                                </a>
+                                <!-- Type/Style of Beer -->
+                                <p class="beer-style">Witbier</p>
+                                <!-- Code for BootStrap Collapse function -->
+                                <!-- <p> -->
+                                <a class="btn btn-primary text-dark" data-toggle="collapse" href="#multiCollapse1" role="button" aria-expanded="false" aria-controls="multiCollapse1">
+                                    Read More
+                                </a>
+                                <div class="collapse multi-collapse" id="multiCollapse1">
+                                    <div class="card card-body">
+                                        <!-- Information shown after the collapse is activated -->
+                                        <!-- Beer description -->
+                                        <p class="beer-description">
+                                            <em>Blue Moon Belgian White, Belgian-style wheat ale, is a refreshing, medium-bodied,
+                                                unfiltered Belgian-style wheat ale spiced with fresh coriander and orange
+                                                peel for a uniquely complex taste and an uncommonly smooth finish.
+                                            </em>
+                                        </p>
+                                        <div class="row">
+
+                                            <div class="col-sm-6 col-lg-5 abv">5.4% Alcohol By Volume</div>
+
+                                            <div class="col-sm-6 col-lg-5 ibu">9 International Bitterness Units</div>
+                                        </div>
+                                        <!-- <p>
+
+                                                        
+                                                    
+                                                        <div class="row">
+                                                            <h5>Similar to Blue Moon</h5>
+                                                        </div>
+                                                        <div class="row">
+                                                            <ul>
+                                                                
+
+                                                                <li class="sim-beer-1">Samuel Adams Cold Tap</li>
+                                                                <li class="sim-beer-2">Samuel Adams Cold Tap</li>
+                                                                <li class="sim-beer-3">Samuel Adams Cold Tap</li>
+                                                                <li class="sim-beer-4">Samuel Adams Cold Tap</li>
+                                                            </ul>
+                                                    </p>
+                                                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- placeholder column for additional beers -->
+            <div class="col col-sm-10 col-md-6 col-lg-3">
+
+            </div>
+            <!-- Right Column navigational information -->
+            <!-- <div class="container-fluid"> -->
+            <!-- <div class="row"></div> -->
+            <div class="col col-sm-10 col-md-5 col-lg-6">
+                <div id="map" style="width:100%; height:500px;"></div>
+            </div>
+            <!-- END OF SUPREME CONTAINER -->
+        </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="page-footer font-small bg-dark pt-0">
+
+            <div style="background-color: #6351ce;">
+                <div class="container-fluid bg-secondary">
+                    <!--Grid row-->
+                    <div class="row py-4 d-flex align-items-center">
+
+                        <!--Grid column-->
+                        <div class="col-md-6 col-lg-5 bg-secondary text-center text-md-left mb-4 mb-md-0">
+                            <h6 class="mb-0 white-text">Get connected with us on our social networks!</h6>
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+                </div>
+            </div>
+
+            <!--Footer Links-->
+            <div class="container mt-5 mb-4 bg-dark text-center text-md-left">
+                <div class="row mt-3">
+
+                    <!--First column-->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <h6 class="text-uppercase">
+                            <strong>BeerHunter</strong>
+                        </h6>
+                        <hr class="red accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <em>We are just three guys with a love of beer.</p>
+                        <p> We found that when we went out with friends, we were having to find substitutes for our favorite
+                            beers because of limited selection. Our goal with BeerHunter is to make finding a venue that
+                            serves everyone's favorite beers simple.</em>
+                        </p>
+                    </div>
+                    <!--/.First column-->
+
+                    <!--Second column-->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Tyler Jenkins</strong>
+                        </h6>
+
+                        <hr class="red accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="https://www.linkedin.com/in/tyler-jenkins-834a5b4b/" target="_blank">LinkedIn</a>
+                        </p>
+                        <p>
+                            <a href="https://github.com/TyPhyter" target="_blank">GitHub</a>
+                        </p>
+                        <!-- <p>
+                <a href="#!">BrandFlow</a>
+            </p>
+            <p>
+                <a href="#!">Bootstrap Angular</a>
+            </p> -->
+                    </div>
+                    <!--/.Second column-->
+
+                    <!--Third column-->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Luis Salazar</strong>
+                        </h6>
+                        <hr class="red accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!" target="_blank">LinkedIn</a>
+                        </p>
+                        <p>
+                            <a href="https://github.com/vluizang3l888v" target="_blank">GitHub</a>
+                        </p>
+                        <!-- <p>
+                <a href="#!">Shipping Rates</a>
+            </p>
+            <p>
+                <a href="#!">Help</a>
+            </p> -->
+                    </div>
+                    <!--/.Third column-->
+
+                    <!--Fourth column-->
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Tanner Chmielewski</strong>
+                        </h6>
+                        <hr class="red accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="https://www.linkedin.com/in/tannerc/ " target="_blank">LinkedIn</a>
+                        </p>
+                        <p>
+                            <a href="https://github.com/tannerchm" target="_blank">GitHub</a>
+                        </p>
+                    </div>
+                    <!--/.Fourth column-->
+
+                </div>
+            </div>
+            <!--/.Footer Links-->
+
+            <!-- Copyright-->
+            <div class="footer-copyright py-3 text-center">
+                © 2018 Copyright:
+                <a href="beerhunter.com">
+                    <strong> BeerHunter.com</strong>
+                </a>
+            </div>
+            <!--/.Copyright -->
+
+        </footer>
+        <!--/.Footer-->
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmpG4-hKDAnfa_ZunuAKsdEBReaa8G0rc&callback=initMap&libraries=places"></script>
+    <script src="assets/javascript/map.js"></script>
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>
+<!--  async defer  -->
