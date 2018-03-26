@@ -239,6 +239,10 @@ $("#beer-search-btn").on("click", function (evt) {
 
     clearMarkers();
     deleteMarkers();
+    $(".jumbotron").hide();
+    $("#beer-column1").html("");
+    $("#beer-column2").html("");
+
     for (var i = 1; i <= inputs; i++) {
         var beerSearchString = $(`#beer-input${i}`).val().trim();
         //don't run for empty inputs

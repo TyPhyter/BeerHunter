@@ -10,16 +10,23 @@ body {
     filter: blur(1px);
 } */
 
-.modal-dialog {
-    width: 100%;
-}
-
 body.modal-open > :not(.modal) {
     -webkit-filter: blur(1px);
     -moz-filter: blur(1px);
     -o-filter: blur(1px);
     -ms-filter: blur(1px);
     filter: blur(1px);
+}
+
+.img-fluid {
+    max-width: 100%;
+    max-height: auto;
+   
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 a:link {
     color: #ffcc00;
@@ -49,8 +56,11 @@ a:link {
     width: 100%;
 }
 .jumbotron {
-    background-image: url("../img/jumbotron_bg.jpg");
-    background-size: cover;}
+    background-size: cover;
+    max-width: 100%;
+    max-height: auto;
+}
+    
 
 .navbar-brand {
     font-family: 'Lobster', cursive;
