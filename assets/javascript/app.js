@@ -202,7 +202,7 @@ var searchVenues = function (searchString) {
 
     $.ajax({
         //change this to hosted address
-        url: "https://salty-sands-53820.herokuapp.com/scrape?" + params,
+        url: "https://fathomless-island-52308.herokuapp.com/scrape?" + params,
         method: "GET"
     }).then(function (response) {
         //console.log(response);
