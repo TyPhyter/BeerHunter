@@ -21,8 +21,8 @@ Additional tech: undecided as of yet
 
 Use your API key, listed below, to authenticate with our service so we know who you are. Please do not share your keys with anyone. 
 
-Client ID: 10D59DD4FF07B414B2EBE33E1845EEDE0F4637DF
-Client Secret: 18DD8FCA36FB7B4BCD6D311586718A663D15EFB3 
+Client ID:
+Client Secret: 
 To get started here are few important links:
 
 API Documentation V4: http://untappd.com/api/docs/v4
