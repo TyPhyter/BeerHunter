@@ -1,4 +1,16 @@
+var serverLive = false;
+// wake up heroku server
+$.ajax({
+    url: "https://fathomless-island-52308.herokuapp.com/",
+    method: "GET"
+}).then(function (response) {
+    serverLive = true;
+    if ($(".alert")) {
+        $(".alert").alert("close");
+    }
+});
 
+//initialize google maps
 var map, infoWindow, myLatLng, myCity, geocoder;
 var markers = [];
 function initMap() {
@@ -100,16 +112,17 @@ function deleteMarkers() {
     clearMarkers();
     markers = [];
 }
-// Initialize Firebase
-// var config = {
-//     apiKey: "AIzaSyAxB1QrnVyWKjDfWvck3AdlbuLwrcy-fGI",
-//     authDomain: "beerhunter-3f306.firebaseapp.com",
-//     databaseURL: "https://beerhunter-3f306.firebaseio.com",
-//     projectId: "beerhunter-3f306",
-//     storageBucket: "beerhunter-3f306.appspot.com",
-//     messagingSenderId: "494172587100"
-// };
-// firebase.initializeApp(config);
+
+//Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAxB1QrnVyWKjDfWvck3AdlbuLwrcy-fGI",
+    authDomain: "beerhunter-3f306.firebaseapp.com",
+    databaseURL: "https://beerhunter-3f306.firebaseio.com",
+    projectId: "beerhunter-3f306",
+    storageBucket: "beerhunter-3f306.appspot.com",
+    messagingSenderId: "494172587100"
+};
+firebase.initializeApp(config);
 
 // API call URL format vvv
 // https://api.untappd.com/v4/method_name?client_id=CLIENTID&client_secret=CLIENTSECRET
@@ -133,7 +146,6 @@ var barSearchResult = {
 var inputs = 1;
 
 //var venueDemoURL = untappdEndpoint + venueInfoMethod + venueID + "?" + params;
-
 
 var searchBeer = function (searchString, inputIndex) {
     var column = inputIndex % 2 ? 1 : 2;
@@ -198,104 +210,128 @@ var searchVenues = function (searchString) {
         q: searchString
     });
     var searchResult;
+    var geocodedCoords;
 
-
-    $.ajax({
-        //change this to hosted address
-        url: "https://fathomless-island-52308.herokuapp.com/scrape?" + params,
-        method: "GET"
-    }).then(function (response) {
-        //console.log(response);
-        searchResult = response;
-        service = new google.maps.places.PlacesService(map);
-        //for every bar in response object bars array, use google Places search to get address
-        $.each(searchResult.bars, function (index, bar) {
-            //google maps api places text search function
-            service.textSearch({
-                query: bar.barName,
-                //change this to a position based on search field
-                location: myLatLng
-            }, function (response) {
-                if (response && response[0]) {
-                    var address = response[0].formatted_address;
-                    var name = response[0].name;
-                    //for every bar with a found address, use google geocoding API to find coordinates
-                    $.ajax({
-                        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${response[0].formatted_address.split(" ").join("+")}&key=AIzaSyBmpG4-hKDAnfa_ZunuAKsdEBReaa8G0rc`,
-                        method: "GET"
-                    }).then(function (response) {
-                        //console.log(response.results[0].geometry.location);
-                        barSearchResult.bars.push({ name: name, address: address, location: response.results[0].geometry.location });
-                    });
-                }
-
-            });
-        });
+    geocoder.geocode({ 'address': searchString }, function (results, status) {
+        if (status === 'OK') {
+            if (results[0]) {
+                geocodedCoords = results[0].geometry.location;
+                map.setCenter(geocodedCoords);
+                console.log(geocodedCoords);
+            } else {
+                console.log('No results found');
+            }
+        } else {
+            console.log('Geocoder failed due to: ' + status);
+        }
     });
 
-}
+        $.ajax({
+            //change this to hosted address
+            url: "https://fathomless-island-52308.herokuapp.com/scrape?" + params,
+            method: "GET"
+        }).then(function (response) {
+            //console.log(response);
+            searchResult = response;
+            service = new google.maps.places.PlacesService(map);
+            //for every bar in response object bars array, use google Places search to get address
+            $.each(searchResult.bars, function (index, bar) {
+                //google maps api places text search function
+                service.textSearch({
+                    query: bar.barName,
+                    //change this to a position based on search field
+                    location: geocodedCoords
+                }, function (response) {
+                    if (response && response[0]) {
+                        var address = response[0].formatted_address;
+                        var name = response[0].name;
+                        //for every bar with a found address, use google geocoding API to find coordinates
+                        $.ajax({
+                            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${response[0].formatted_address.split(" ").join("+")}&key=AIzaSyBmpG4-hKDAnfa_ZunuAKsdEBReaa8G0rc`,
+                            method: "GET"
+                        }).then(function (response) {
+                            //console.log(response.results[0].geometry.location);
+                            barSearchResult.bars.push({ name: name, address: address, location: response.results[0].geometry.location });
+                        });
+                    }
 
-$("#beer-search-btn").on("click", function (evt) {
-
-    clearMarkers();
-    deleteMarkers();
-    $(".jumbotron").hide();
-    $("#beer-column1").html("");
-    $("#beer-column2").html("");
-
-    for (var i = 1; i <= inputs; i++) {
-        var beerSearchString = $(`#beer-input${i}`).val().trim();
-        //don't run for empty inputs
-        if (beerSearchString) {
-            searchBeer(beerSearchString, i);
-        }
-    }
-
-    //sanitize input to remove commas and any special characters
-    var locationString = $("#location-input").val().trim().split(" ").join("+");
-    searchVenues(locationString);
-
-    $("#inputModal").modal("hide");
-    var setMarkers = function () {
-        console.log(barSearchResult)
-        for (var i = 0; i < barSearchResult.bars.length; i++) {
-
-            marker = new google.maps.Marker({
-                position: barSearchResult.bars[i].location,
-                map: map,
-                icon: './assets/images/beer.png',
-                animation: google.maps.Animation.BOUNCE
-            });
-            marker.name = barSearchResult.bars[i].name;
-            marker.address = barSearchResult.bars[i].address;
-
-            // newInfo.setContent("<p>" + barSearchResult.bars[i].name + "<br />" + barSearchResult.bars[i].address  + "</p>");
-            marker.addListener('click', function (evt) {
-                // newInfo.open(map, marker);
-                console.log(evt);
-                console.log(this);
-                console.log(this.name);
-                var newInfo = new google.maps.InfoWindow({
-                    content: `<div>${this.name}<br>${this.address}</div>`
                 });
-                newInfo.open(map, this);
-                //this.setAnimation(null);
             });
+        });
 
-            markers.push(marker);
-        }
     }
-    setTimeout(setMarkers, 2000);
 
+$(document).on("click", "#beer-search-btn", function beerSearchButtonClick(evt) {
 
-});
+            if (serverLive) {
+                clearMarkers();
+                deleteMarkers();
+                $(".jumbotron").hide();
+                $("#beer-column1").html("");
+                $("#beer-column2").html("");
 
-$("#moreBeerBtn").on("click", function (evt) {
-    inputs++;
-    var btn = $("#moreBeerBtn");
-    var newInput = $(`<input type="text" class="form-control" id="beer-input${inputs}" placeholder="Beer name" aria-label="Recipient's username" aria-describedby="basic-addon2">`);
-    $("#beer-input-grp").append(newInput, btn);
-});
+                for (var i = 1; i <= inputs; i++) {
+                    var beerSearchString = $(`#beer-input${i}`).val().trim();
+                    //don't run for empty inputs
+                    if (beerSearchString) {
+                        searchBeer(beerSearchString, i);
+                    }
+                }
+
+                //sanitize input to remove commas and any special characters
+                var locationString = $("#location-input").val().trim().split(" ").join("+");
+                searchVenues(locationString);
+
+                $("#inputModal").modal("hide");
+                var setMarkers = function () {
+                    console.log(barSearchResult)
+                    for (var i = 0; i < barSearchResult.bars.length; i++) {
+
+                        marker = new google.maps.Marker({
+                            position: barSearchResult.bars[i].location,
+                            map: map,
+                            icon: './assets/images/beer.png',
+                            animation: google.maps.Animation.BOUNCE
+                        });
+                        marker.name = barSearchResult.bars[i].name;
+                        marker.address = barSearchResult.bars[i].address;
+
+                        // newInfo.setContent("<p>" + barSearchResult.bars[i].name + "<br />" + barSearchResult.bars[i].address  + "</p>");
+                        marker.addListener('click', function (evt) {
+                            // newInfo.open(map, marker);
+                            console.log(evt);
+                            console.log(this);
+                            console.log(this.name);
+                            var newInfo = new google.maps.InfoWindow({
+                                content: `<div>${this.name}<br>${this.address}</div>`
+                            });
+                            newInfo.open(map, this);
+                            //this.setAnimation(null);
+                        });
+
+                        markers.push(marker);
+                    }
+
+                    // var bounds = new google.maps.LatLngBounds();
+                    // for (var i = 0; i < markers.length; i++) {
+                    //     bounds.extend(markers[i].getPosition());
+                    // }   
+                    // map.fitBounds(bounds);
+                }
+                //this is far from ideal, but I was unable to get $.when() to work like I wanted it to with all of these nested calls
+                setTimeout(setMarkers, 2500);
+            } else {
+                var serverAlert = $(`<div class="alert alert-warning">Waiting for server to spin up. This alert will disappear when it is ready!</div>`);
+                $(".modal-footer").prepend(serverAlert);
+            }
+        });
+
+    $("#moreBeerBtn").on("click", function (evt) {
+        inputs++;
+        var btn = $("#moreBeerBtn");
+        var newInput = $(`<input type="text" class="form-control" id="beer-input${inputs}" placeholder="Beer name" aria-label="Recipient's username" aria-describedby="basic-addon2">`);
+        $("#beer-input-grp").append(newInput, btn);
+    });
 
 
 
